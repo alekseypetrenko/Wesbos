@@ -2,16 +2,21 @@ import React from "react";
 import {getFunName} from "../helpers"
 
 class StorePicker extends React.Component {
-    handleClick(){
-        console.log(1);
+    myInput = React.createRef();
+    goToStore = event => {
+        // 1. Stop the form from submiting
+        event.preventDefault();
+        // 2. Get the text from the input
+        const storeName = this.myInput.value.value;
+        // 3. Change the URL to /store/what ever entered
+        this.props.history.push(`/store/${storeName}`)
     }
     render() {
-        console.log(this)
         return (
-            <form action="" className="store-selector">
+            <form action="" className="store-selector" onSubmit={this.goToStore}>
                 <h2>Please enter A Store</h2>
-                <button onClick={this.handleClick}>Click me!</button>
-                <input type="text"required placeholder="Store Enter" defaultValue={getFunName()}/>
+                <button >Click me!</button>
+                <input type="text" ref={this.myInput} required placeholder="Store Enter" defaultValue={getFunName()}/>
                 <button type="submit">Visit Store -></button>
             </form>
         )
